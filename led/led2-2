@@ -1,0 +1,35 @@
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(16, GPIO.OUT)
+GPIO.setup(19, GPIO.IN)
+
+print('press the button')
+a=0
+try:
+    while True:
+        
+        GPIO.output(16, False)
+        
+        
+        if GPIO.input(19)==1:
+            # s/w on : e 19->Gnd
+            print('button pressed')
+            
+            a=a+1
+            #count numbers
+            GPIO.output(16, True)
+        
+            time.sleep(1)
+        
+            print(a)
+        
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    
+    '''
+    3v3-R-s/w-#19
+           -led(G)-Gnd
+    #16-R-led(Y)-Gnd
+    '''
